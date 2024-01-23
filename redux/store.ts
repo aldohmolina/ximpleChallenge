@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import planReducer from './reducers/planReducer';
+import planReducer from './reducers/creditsReducer';
 
 export const store = configureStore({
   reducer: {
