@@ -8,10 +8,31 @@ import {
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useCardAnimation} from '@react-navigation/stack';
+import {TitleSection} from '../components/TitleSection';
+import {ActionButton} from '../components/ActionButton';
+import {useEffect} from 'react';
+import {setCredits} from '../redux/reducers/creditsReducer';
+import {useSelector} from 'react-redux';
+import {useAppSelector} from '../redux/hooks/useAppSelector';
+import {useAppDispatch} from '../redux/hooks/useAppDispatch';
 
 function ModalScreen({navigation}: any) {
   const {colors} = useTheme();
   const {current} = useCardAnimation();
+  const {credits, selected} = useAppSelector(state => state.planReducer);
+  const distpach = useAppDispatch();
+
+  useEffect(() => {
+    distpach(
+      setCredits([
+        {id: 1, name: 'Credito 1', value: 500},
+        {id: 2, name: 'Credito 2', value: 1000},
+        {id: 3, name: 'Credito 3', value: 1500},
+        {id: 4, name: 'Credito 4', value: 2000},
+      ]),
+    );
+    return () => {};
+  }, []);
 
   return (
     <View
@@ -29,10 +50,10 @@ function ModalScreen({navigation}: any) {
       />
       <Animated.View
         style={{
-          padding: 16,
+          padding: 20,
           width: '90%',
           maxWidth: 400,
-          borderRadius: 3,
+          borderRadius: 15,
           backgroundColor: colors.card,
           transform: [
             {
@@ -44,17 +65,12 @@ function ModalScreen({navigation}: any) {
             },
           ],
         }}>
-        <Text>
-          Mise en place is a French term that literally means “put in place.” It
-          also refers to a way cooks in professional kitchens and restaurants
-          set up their work stations—first by gathering all ingredients for a
-          recipes, partially preparing them (like measuring out and chopping),
-          and setting them all near each other. Setting up mise en place before
-          cooking is another top tip for home cooks, as it seriously helps with
-          organization. It’ll pretty much guarantee you never forget to add an
-          ingredient and save you time from running back and forth from the
-          pantry ten times.
-        </Text>
+        <TitleSection
+          title="Felicidades!"
+          subtitle="Encontramos estos creditos perfectos para ti:"
+        />
+        <Text>{JSON.stringify(credits, null, 2)}</Text>
+        <ActionButton title="Seleccionar Crédito" onPress={navigation.goBack} />
         <Button
           title="Okay"
           color={colors.primary}
