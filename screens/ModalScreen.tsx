@@ -80,7 +80,15 @@ function ModalScreen({navigation}: any) {
             />
           ))}
         </View>
-        <ActionButton title="Seleccionar Crédito" onPress={navigation.goBack} />
+        <ActionButton
+          title="Seleccionar Crédito"
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'ContractScreen'}],
+            });
+          }}
+        />
       </Animated.View>
     </View>
   );

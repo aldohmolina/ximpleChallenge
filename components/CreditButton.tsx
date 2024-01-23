@@ -14,7 +14,7 @@ export const CreditButton = ({name, value, select, ...props}: Props) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: select ? '#007aff' : 'rgba(0, 122, 255,0.5)',
+        backgroundColor: `rgba(0, 122, 255,${select ? 1 : 0.5})`,
         padding: 10,
         borderRadius: 5,
         marginVertical: 6,
