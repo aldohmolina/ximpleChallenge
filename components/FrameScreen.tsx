@@ -7,7 +7,7 @@ interface Props {
   children?: ReactNode;
 }
 
-export const ScreenContainer = ({children, title, subtitle}: Props) => {
+export const FrameScreen = ({children, title, subtitle}: Props) => {
   return (
     <>
       <SafeAreaView style={{paddingHorizontal: 15, paddingVertical: 10}}>
