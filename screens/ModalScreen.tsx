@@ -15,6 +15,7 @@ import {setCredits} from '../redux/reducers/creditsReducer';
 import {useSelector} from 'react-redux';
 import {useAppSelector} from '../redux/hooks/useAppSelector';
 import {useAppDispatch} from '../redux/hooks/useAppDispatch';
+import {CreditButton} from '../components/CreditButton';
 
 function ModalScreen({navigation}: any) {
   const {colors} = useTheme();
@@ -69,14 +70,17 @@ function ModalScreen({navigation}: any) {
           title="Felicidades!"
           subtitle="Encontramos estos creditos perfectos para ti:"
         />
-        <Text>{JSON.stringify(credits, null, 2)}</Text>
+        <View style={{marginTop: 10}}>
+          {credits.map(({value, name, id}) => (
+            <CreditButton
+              key={id.toString()}
+              value={value}
+              name={name}
+              select={id === selected}
+            />
+          ))}
+        </View>
         <ActionButton title="Seleccionar Crédito" onPress={navigation.goBack} />
-        <Button
-          title="Okay"
-          color={colors.primary}
-          style={{alignSelf: 'flex-end'}}
-          onPress={navigation.goBack}
-        />
       </Animated.View>
     </View>
   );
