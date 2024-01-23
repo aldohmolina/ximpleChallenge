@@ -9,11 +9,18 @@ export const AuthInput = ({labelText, ...props}: Props) => {
   return (
     <View style={{marginVertical: 5}}>
       <View style={{marginVertical: 5}}>
-        <Text style={{fontSize: 16}}>{labelText}</Text>
+        <Text style={{fontSize: 14}}>{labelText}</Text>
       </View>
       <TextInput
         {...props}
-        style={{borderWidth: 1, borderRadius: 5, borderColor: '#AAA'}}
+        style={{
+          borderWidth: 1,
+          borderRadius: 5,
+          borderColor: '#AAA',
+          color: '#000',
+          fontSize: 20,
+          padding: 15,
+        }}
       />
     </View>
   );
