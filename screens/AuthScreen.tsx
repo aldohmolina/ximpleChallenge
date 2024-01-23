@@ -2,22 +2,24 @@ import {View} from 'react-native';
 import {AuthInput} from '../components/AuthInput';
 import {ActionButton} from '../components/ActionButton';
 import {ScreenLayout} from '../components/ScreenLayout';
-import {useNavigation} from '@react-navigation/native';
+import {useAuthScreen} from './hooks/useAuthScreen';
 
-export const AuthScreen = () => {
-  const navigation = useNavigation<any>();
+export const AuthScreen = ({navigation}: any) => {
+  const {setName, setEmail, isActiveToSubmit} = useAuthScreen();
   return (
     <>
       <ScreenLayout
         title="Descubre tu Credito"
         subtitle="Llena el siguiente formulario para conocer  los créditos que tenemos disponibles para ti">
         <View>
-          <AuthInput labelText="Nombre" />
-          <AuthInput labelText="Correo" />
+          <AuthInput labelText="Nombre" onChangeText={setName} />
+          <AuthInput labelText="Correo" onChangeText={setEmail} />
           <ActionButton
+            disabled={!isActiveToSubmit()}
             title="Descubrir Creditos"
+            active={isActiveToSubmit()}
             onPress={() => {
-              navigation.navigate('ModalScreen');
+              isActiveToSubmit() && navigation.navigate('ModalScreen');
             }}
           />
         </View>

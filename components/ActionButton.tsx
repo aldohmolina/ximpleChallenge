@@ -2,9 +2,10 @@ import {Text, TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 interface Props extends TouchableOpacityProps {
   title: string;
+  active?: boolean;
 }
 
-export const ActionButton = ({title, ...props}: Props) => {
+export const ActionButton = ({title, active = true, ...props}: Props) => {
   return (
     <TouchableOpacity
       {...props}
@@ -12,7 +13,7 @@ export const ActionButton = ({title, ...props}: Props) => {
         // flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#007aff',
+        backgroundColor: `rgba(0, 122, 255,${active ? 1 : 0.5})`,
         padding: 15,
         borderRadius: 5,
         marginVertical: 35,
