@@ -11,10 +11,10 @@ import {useCardAnimation} from '@react-navigation/stack';
 import {TitleSection} from '../components/TitleSection';
 import {ActionButton} from '../components/ActionButton';
 import {useEffect} from 'react';
-import {setCredits} from '../redux/reducers/creditsReducer';
+import {setCredits} from '../../redux/reducers/creditsReducer';
 import {useSelector} from 'react-redux';
-import {useAppSelector} from '../redux/hooks/useAppSelector';
-import {useAppDispatch} from '../redux/hooks/useAppDispatch';
+import {useAppSelector} from '../../redux/hooks/useAppSelector';
+import {useAppDispatch} from '../../redux/hooks/useAppDispatch';
 import {CreditButton} from '../components/CreditButton';
 
 function ModalScreen({navigation}: any) {
