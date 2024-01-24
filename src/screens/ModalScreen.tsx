@@ -26,7 +26,6 @@ function ModalScreen({navigation}: any) {
 
   useEffect(() => {
     if (!isLoading && Array.isArray(data?.data)) {
-      console.log(data);
       distpach(setCredits(data?.data));
     } else if (error) {
       Alert.alert('Ocurrio un error en el proceso');
