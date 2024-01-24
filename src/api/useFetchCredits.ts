@@ -3,25 +3,15 @@ import {useAxiosAPI} from './useAxios';
 
 export const useFetchCredits = () => {
   const {axiosAPI} = useAxiosAPI();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<any>();
-  const [data, setData] = useState<any>();
   const fetchCredits = async () => {
     const uri = '/2156ae74-9927-4f44-8960-dbdbd0d798ac';
-    setIsLoading(true);
     try {
       const response = await axiosAPI.get(uri);
-      setData(response.data);
+      return response;
     } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
+      console.error('Error at useFetchCredits.fetchCredits', error);
+      throw error;
     }
   };
-  return {
-    isLoading,
-    error,
-    data,
-    fetchCredits,
-  };
+  return fetchCredits;
 };

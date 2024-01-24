@@ -4,8 +4,9 @@ import {ActionButton} from '../components/ActionButton';
 import {ScreenLayout} from '../components/ScreenLayout';
 import {useAuthScreen} from './hooks/useAuthScreen';
 
-export const AuthScreen = ({navigation}: any) => {
-  const {setName, setEmail, isActiveToSubmit} = useAuthScreen();
+export const AuthScreen = () => {
+  const {setName, setEmail, isActiveToSubmit, onSubmit, isLoading} =
+    useAuthScreen();
   return (
     <>
       <ScreenLayout
@@ -18,9 +19,8 @@ export const AuthScreen = ({navigation}: any) => {
             disabled={!isActiveToSubmit()}
             title="Descubrir Creditos"
             active={isActiveToSubmit()}
-            onPress={() => {
-              isActiveToSubmit() && navigation.navigate('ModalScreen');
-            }}
+            isLoading={isLoading}
+            onPress={() => isActiveToSubmit() && onSubmit()}
           />
         </View>
       </ScreenLayout>

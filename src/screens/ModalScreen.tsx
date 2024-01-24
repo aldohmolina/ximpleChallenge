@@ -22,20 +22,6 @@ function ModalScreen({navigation}: any) {
   const {current} = useCardAnimation();
   const {credits, selected} = useAppSelector(state => state.planReducer);
   const distpach = useAppDispatch();
-  const {isLoading, data, error, fetchCredits} = useFetchCredits();
-
-  useEffect(() => {
-    if (!isLoading && Array.isArray(data?.data)) {
-      distpach(setCredits(data?.data));
-    } else if (error) {
-      Alert.alert('Ocurrio un error en el proceso');
-      console.error(error);
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
-    fetchCredits();
-  }, []);
 
   return (
     <View
@@ -68,37 +54,31 @@ function ModalScreen({navigation}: any) {
             },
           ],
         }}>
-        {isLoading ? (
-          <ActivityIndicator style={{padding: 20}} size="large" />
-        ) : (
-          <>
-            <TitleSection
-              title="Felicidades!"
-              subtitle="Encontramos estos creditos perfectos para ti:"
+        <TitleSection
+          title="Felicidades!"
+          subtitle="Encontramos estos creditos perfectos para ti:"
+        />
+        <View style={{marginTop: 10}}>
+          {credits.map(credit => (
+            <CreditButton
+              key={credit.id.toString()}
+              value={credit.value}
+              name={credit.name}
+              select={credit.id === selected?.id}
+              onPress={() => distpach(setSelectedCredit(credit))}
             />
-            <View style={{marginTop: 10}}>
-              {credits.map(credit => (
-                <CreditButton
-                  key={credit.id.toString()}
-                  value={credit.value}
-                  name={credit.name}
-                  select={credit.id === selected?.id}
-                  onPress={() => distpach(setSelectedCredit(credit))}
-                />
-              ))}
-            </View>
-            <ActionButton
-              title="Seleccionar Crédito"
-              onPress={() =>
-                selected &&
-                navigation.reset({
-                  index: 0,
-                  routes: [{name: 'ContractScreen'}],
-                })
-              }
-            />
-          </>
-        )}
+          ))}
+        </View>
+        <ActionButton
+          title="Seleccionar Crédito"
+          onPress={() =>
+            selected &&
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'ContractScreen'}],
+            })
+          }
+        />
       </Animated.View>
     </View>
   );
