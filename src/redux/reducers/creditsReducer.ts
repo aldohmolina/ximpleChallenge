@@ -8,7 +8,7 @@ interface Credit {
 
 interface CreditState {
   credits: Credit[];
-  selected: number | null;
+  selected: Credit | null;
 }
 
 const initialState: CreditState = {
@@ -23,7 +23,7 @@ const creditsSlice = createSlice({
     setCredits(state, action: PayloadAction<Credit[]>) {
       state.credits = action.payload;
     },
-    setSelectedCredit(state, action: PayloadAction<number>) {
+    setSelectedCredit(state, action: PayloadAction<Credit>) {
       state.selected = action.payload;
     },
   },
