@@ -1,40 +1,44 @@
+import axios from 'axios';
 import {
   Animated,
   View,
-  Text,
   Pressable,
-  Button,
   StyleSheet,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useCardAnimation} from '@react-navigation/stack';
 import {TitleSection} from '../components/TitleSection';
 import {ActionButton} from '../components/ActionButton';
 import {useEffect} from 'react';
-import {setCredits} from '../../redux/reducers/creditsReducer';
-import {useSelector} from 'react-redux';
-import {useAppSelector} from '../../redux/hooks/useAppSelector';
-import {useAppDispatch} from '../../redux/hooks/useAppDispatch';
+import {setCredits} from '../redux/reducers/creditsReducer';
+import {useAppSelector} from '../redux/hooks/useAppSelector';
+import {useAppDispatch} from '../redux/hooks/useAppDispatch';
 import {CreditButton} from '../components/CreditButton';
+import {useFetchCredits} from '../api/useFetchCredits';
 
 function ModalScreen({navigation}: any) {
   const {colors} = useTheme();
   const {current} = useCardAnimation();
   const {credits, selected} = useAppSelector(state => state.planReducer);
   const distpach = useAppDispatch();
-
+  const {isLoading, data, error, fetchCredits} = useFetchCredits();
   useEffect(() => {
-    distpach(
-      setCredits([
-        {id: 1, name: 'Credito 1', value: 500},
-        {id: 2, name: 'Credito 2', value: 1000},
-        {id: 3, name: 'Credito 3', value: 1500},
-        {id: 4, name: 'Credito 4', value: 2000},
-      ]),
-    );
-    return () => {};
+    fetchCredits();
+    if (!isLoading && !error && data?.data) {
+      console.log(data);
+      distpach(setCredits(data?.data));
+    } else {
+      Alert.alert('Ocurrio un error en el proceso');
+    }
   }, []);
-
+  if (isLoading)
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   return (
     <View
       style={{
